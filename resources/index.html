@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact List</title>
+        <style>
+            h1 {
+                background-color: aquamarine;
+                width: 300px;
+                text-align: center;
+                border-radius: 10px;
+            }
+
+            #card {
+                background-color: aqua;
+                width: 250px;
+                margin: 15px;
+                padding: 5px;
+                border-radius: 10px;
+            }
+            
+            form {
+                background-color: bisque;
+                width: 200px;
+                margin: 15px;
+                padding: 5px;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+<body onload="getContacts()">
+
+<h1>Here are your contacts:</h1>
+<div id="container">
+
+</div>
+
+<form>
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <label for="phoneNum">Phone #:</label><br>
+    <input type="number" id="phoneNum" name="phoneNum" value="987654"><br><br>
+    <label for="mail">Email :</label><br>
+    <input type="text" id="mail" name="mail" value=""><br><br>
+    <button type="button" onclick="send()">Submit</button>
+</form>
+
+<script>
+    var container = document.getElementById("container")
+    
+    function getContacts() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                data = JSON.parse(this.response)
+                updateContainer(data)
+            }
+        }
+        xhttp.open("GET", "http://localhost:8080/contacts", true)
+        xhttp.send()
+    }
+
+    function updateContainer(content) {
+        container.innerHTML = "";
+        content.forEach(element => {
+            container.innerHTML += `
+            <div id="card"> Name: ${element.firstName} ${element.lastName} </br>
+                Phone #: ${element.phoneNumber} </br>
+                Email: ${element.email} </div>`;
+        }); 
+    }
+
+    function send() {
+        var requestBody = {
+            firstName: document.getElementById("fname").value,
+            lastName : document.getElementById("lname").value,
+            phoneNumber : document.getElementById("phoneNum").value,
+            email : document.getElementById("mail").value
+        }
+
+        console.log(requestBody)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("Success!!");
+            }
+        };
+        xhttp.open("POST", "http://localhost:8080/add", true);
+        xhttp.setRequestHeader("Content-Type", "application/json")
+        xhttp.send(JSON.stringify(requestBody));
+        getContacts();
+    }
+
+</script>
+
+</body>
+</html>
