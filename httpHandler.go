@@ -67,7 +67,7 @@ func handleRouting(method *string, route []string, requestArray *[]string) strin
 	
 	// handle GET requests
 	if (*method == "GET") {
-		file := route[len(route) - 1]
+		file := route[len(route) - 1] // Get the last item in the route array to prevent any attempt of accessing anything else on the system
 		cType := getContentTypeFromRoute(file)
 
 		// if the request is routed to /contacts it will return a json list
