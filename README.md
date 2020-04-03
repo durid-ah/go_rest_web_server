@@ -5,3 +5,9 @@ The purpose of this project is to better understand http requests and how they c
 ## Routes handled:
 * GET Requests at `/contacts` : The api returns a list of the contacts available in the database in JSON format
 * POST Requests at `/add` : Adds a new contact to the contact table
+* The web server can also return static files available in the resources folder
+
+## Set up:
+* The server can be easily run using the `server_binary` file in a linux machine.
+* Another option would be to compile the files using `go build` or `go run`
+* When the project is run it uses `PORT: 8080` by default but it can be changed using `--port` flag
