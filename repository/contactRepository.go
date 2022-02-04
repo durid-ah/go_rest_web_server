@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"strconv"
-	//"encoding/json"
 	"sync"
 	"sync/atomic"
 	// handles the sqlite stuff
@@ -86,8 +85,6 @@ func (repo *ContactRepo) InsertContact(contact *Contact) {
 		contact.PhoneNumber,
 		contact.Email,
 	)
-
-	//repo.GetAllContacts()
 }
 
 // GetAllContacts : gets the user's contacts from the database
